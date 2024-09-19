@@ -74,8 +74,9 @@ class Battlefield:
 		"""
 		x,y    = position
 		length = SHIP_LENGTHS[boat]
+		print("Debugg: ", self.is_empty(boat, position, direction), position)
 
-		if self.is_empty(boat, position, direction): return False
+		if not self.is_empty(boat, position, direction): return False
 
 		if direction == "horizontal":
 			for i in range(length):
