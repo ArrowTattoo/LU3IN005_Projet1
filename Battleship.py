@@ -25,13 +25,11 @@ SHIP_LENGTHS =\
 class Game:
 	# Instantiate a new Object
 	def __init__(self):
-		self.grid_IA_1 = Battlefield()
-		self.grid_IA_2 = Battlefield()
+		self.grid_IA_1 = Battlefield(); self.grid_IA_2 = Battlefield()
 
 	# Randomely generate two grid
 	def random(self):
-		self.grid_IA_1.random_grid()
-		self.grid_IA_2.random_grid()
+		self.grid_IA_1.random_grid(); self.grid_IA_2.random_grid()
 
 	def show(self, show: bool = False, debug: bool = False)->None:
 		"""
@@ -117,12 +115,12 @@ class Battlefield:
 
 		if direction == "horizontal":
 			for i in range(length):
-				self.boats[SHIP_IDS[boat]].append( (x,y +i) )
+				self.boats[boat].append( (x,y +i) )
 				self.grid[x,y +i] = boat
 
 		elif direction == "vertical":
 			for j in range(length):
-				self.boats[SHIP_IDS[boat]].append( (x +j,y) )
+				self.boats[boat].append( (x +j,y) )
 				self.grid[x +j,y] = boat
 		return True
 
@@ -196,9 +194,9 @@ class IA_:
 	def simple_propability_IA(self): pass
 	def Monte_Carlo_IA(self): pass
 
-game = Game();
+game = Game()
 game.random()
-# game.show(True)
+game.show(True,True)
 
 
 # Tested
