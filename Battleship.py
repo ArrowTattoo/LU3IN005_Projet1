@@ -39,14 +39,17 @@ class Game:
             debug : to print the grids as matrixes
         """
         print("\nGrille du IA 1:")
-        if   show : self.grid_IA_1.show("A")
-        elif debug: print(self.grid_IA_1.grid)
+        if show : self.grid_IA_1.show("A")
+        if debug: print(self.grid_IA_1.grid)
         else:
             return; print("[show] At least one of two parameters must be True!")
 
         print("\nGrille du IA 2:")
         if show :self.grid_IA_2.show("B")
         if debug: print(self.grid_IA_2.grid)
+
+    def Q2():
+        pass
 
 class Battlefield:
 
