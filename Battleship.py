@@ -39,17 +39,14 @@ class Game:
             debug : to print the grids as matrixes
         """
         print("\nGrille du IA 1:")
-        if show : self.grid_IA_1.show("A")
-        if debug: print(self.grid_IA_1.grid)
+        if   show : self.grid_IA_1.show("A")
+        elif debug: print(self.grid_IA_1.grid)
         else:
             return; print("[show] At least one of two parameters must be True!")
 
         print("\nGrille du IA 2:")
         if show :self.grid_IA_2.show("B")
         if debug: print(self.grid_IA_2.grid)
-
-    def Q2():
-        pass
 
 class Battlefield:
 
@@ -188,7 +185,6 @@ class Battlefield:
 
     def reset(self): self.grid = np.zeros((10, 10), dtype=int)
 
-
 class IA_:
     def __init__(self): self.score: int = 0
 
@@ -199,7 +195,7 @@ class IA_:
 
 game = Game()
 game.random()
-game.show(True,True)
+game.show(True,False)
 
 
 # Tested

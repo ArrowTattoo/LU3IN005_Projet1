@@ -119,6 +119,9 @@ def genere_grille():
 # #affiche(grille_joueur2)
 # print(grille_joueur2)
 
+##### 2 Combinatoire du jeu
+# 2.2 Calcul du nombre de placements dans la grille
+
 def nombre_de_facons_placer(grille, bateau):
     """
     Calcule le nombre total de façons de placer un bateau donné sur une grille vide.
@@ -138,7 +141,6 @@ def nombre_de_facons_placer(grille, bateau):
 
     return count
 
-# Exemple d'utilisation
 grille_vide = np.zeros((GRID_SIZE, GRID_SIZE), dtype=int)
 bateau = 1  # Par exemple, porte-avions (longueur 5)
 nombre_facons = nombre_de_facons_placer(grille_vide, bateau)
@@ -172,10 +174,12 @@ def nombre_total_facons(grille):
 
     return total_facons
 
-# Exemple d'utilisation
 grille_vide = np.zeros((GRID_SIZE, GRID_SIZE), dtype=int)
 nombre_total = nombre_total_facons(grille_vide)
 print(f"Nombre total de façons de placer tous les bateaux: {nombre_total}")
+
+#####
+# 2.3 Calcul du nombre de façons de placer une liste de bateaux sur une grille
 
 def nombre_de_facons_placer(grille, bateau):
     """
@@ -207,8 +211,7 @@ def nombre_facons_liste_bateaux(grille, liste_bateaux):
         total_facons *= facons_bateau
 
     return total_facons
-
-# Exemple d'utilisation sur des listes de 1, 2 et 3 bateaux
+# sur des listes de 1, 2 et 3 bateaux
 grille_vide = np.zeros((GRID_SIZE, GRID_SIZE), dtype=int)
 
 # Liste d'un seul bateau : porte-avions (id = 1)
@@ -225,6 +228,9 @@ print(f"Nombre de façons de placer {liste_deux_bateaux}: {nombre_deux_bateaux}"
 liste_trois_bateaux = [1, 2, 3]  # Porte-avions, Croiseur et Contre-torpilleur
 nombre_trois_bateaux = nombre_facons_liste_bateaux(grille_vide, liste_trois_bateaux)
 print(f"Nombre de façons de placer {liste_trois_bateaux}: {nombre_trois_bateaux}")
+
+######
+# 2.4 Le nombre de répétitions avant d’obtenir deux grilles égales
 
 import numpy as np
 
@@ -259,13 +265,15 @@ def cherche_grille_identique(grille_cible):
 
     return compteur
 
-# Exemple d'utilisation
-Générons une grille cible aléatoire
-grille_cible = genere_grille()
+# Générons une grille cible aléatoire
+# grille_cible = genere_grille()
 
 # Appelons la fonction pour trouver combien de grilles sont générées avant de trouver la même
-nombre_tentatives = cherche_grille_identique(grille_cible)
-print(f"Nombre de grilles générées avant de trouver la grille cible : {nombre_tentatives}")
+# nombre_tentatives = cherche_grille_identique(grille_cible)
+# print(f"Nombre de grilles générées avant de trouver la grille cible : {nombre_tentatives}")
+
+######
+# 2.5 Approximation
 
 import numpy as np
 
@@ -313,6 +321,8 @@ def approximer_nombre_total_grilles(liste_bateaux):
 
     return total_facons
 
+######
+
 def place_alea(grille, bateau):
     """
     Place un bateau aléatoirement sur la grille sans se soucier des autres bateaux.
@@ -334,10 +344,16 @@ def place_alea(grille, bateau):
                 grille[x:x + longueur_bateau, y] = bateau
                 placed = True
 
-# Exemple d'utilisation
-liste_bateaux = [1, 2, 3, 4, 5]  # Tous les bateaux du jeu
-nombre_approximatif = approximer_nombre_total_grilles(liste_bateaux)
-print(f"Nombre approximatif de grilles possibles : {nombre_approximatif}")
+# liste_bateaux = [1, 2, 3, 4, 5]  # Tous les bateaux du jeu
+# nombre_approximatif = approximer_nombre_total_grilles(liste_bateaux)
+# print(f"Nombre approximatif de grilles possibles : {nombre_approximatif}")
+
+
+
+
+###### 4 - Senseur imparfait
+# 4.5 - Algorithme de recherche 
+
 
 import numpy as np
 
@@ -364,13 +380,19 @@ def bayesian_search(N, ps, max_iterations=100, tolerance=1e-4):
     
     return pi
 
-# Example usage
-N = 25  # Grid size (for a 5x5 grid)
+N = 100  # Grid size (for a 5x5 grid)
 ps = 0.8  # Probability of successful detection if the object is present
 pi_estimated = bayesian_search(N, ps)
 
 print("Estimated probabilities after Bayesian search:")
 print(pi_estimated.reshape((int(np.sqrt(N)), int(np.sqrt(N)))))
+
+
+
+
+######
+# 4.6 - Tests de l’algorithme de recherche d’objet
+
 
 import numpy as np
 
@@ -428,7 +450,6 @@ def bayesian_search(N, ps, max_iterations=200):
     print("Object not found within the maximum iterations.")
     return None, max_iterations
 
-# Exemple d'utilisation
 N = 100  # Taille de la grille (par exemple une grille 10x10)
 ps = 0.8  # Probabilité de succès de détection si l'objet est présent
 position_trouvee, iterations = bayesian_search(N, ps)
@@ -491,9 +512,9 @@ def bayesian_search(N, ps, max_iterations=100):
     return max_iterations  # Si l'objet n'est pas trouvé, retourner le nombre max d'itérations
 
 # Configuration de la simulation
-N = 25  # Taille de la grille
-ps = 0.7  # Probabilité de succès de détection si l'objet est présent
-max_iterations = 100  # Nombre maximum d'itérations
+N = 100  # Taille de la grille
+ps = 0.8  # Probabilité de succès de détection si l'objet est présent
+max_iterations = 1000  # Nombre maximum d'itérations
 num_searches = 1000  # Nombre de recherches à effectuer
 
 # Exécuter 1000 recherches
@@ -506,4 +527,106 @@ plt.title('Distribution du nombre d\'itérations nécessaires pour 1000 recherch
 plt.xlabel('Nombre d\'itérations')
 plt.ylabel('Fréquence')
 plt.grid(True)
+plt.show()
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+def update_probabilities(pi, ps, k):
+    """
+    Met à jour les probabilités après l'échec de la détection dans la case k.
+    pi : tableau des probabilités actuelles
+    ps : probabilité de détection
+    k  : indice de la case scannée
+    """
+    # Mise à jour de la probabilité de la case scannée k
+    pi[k] = pi[k] * (1 - ps) / (1 - pi[k] * ps)
+    
+    # Mise à jour des autres probabilités
+    for i in range(len(pi)):
+        if i != k:
+            pi[i] = pi[i] / (1 - pi[k] * ps)
+    
+    return pi
+
+def bayesian_search_with_priors(N, ps, max_iterations=100, prior_distribution="uniform"):
+    """
+    Recherche bayésienne d'un objet dans une grille de N cases avec probabilité de détection ps.
+    Utilise différentes distributions a priori.
+    N : nombre total de cases
+    ps : probabilité de succès de détection si l'objet est dans la case scannée
+    max_iterations : nombre maximum d'itérations
+    prior_distribution : type de distribution a priori (uniform, centered, border)
+    """
+    # Initialisation des probabilités a priori selon la distribution choisie
+    if prior_distribution == "uniform":
+        pi = np.ones(N) / N  # Distribution uniforme
+    elif prior_distribution == "centered":
+        grid_size = int(np.sqrt(N))  # Assuming square grid
+        center = (grid_size // 2, grid_size // 2)
+        pi = np.zeros((grid_size, grid_size))
+        for i in range(grid_size):
+            for j in range(grid_size):
+                distance = np.sqrt((i - center[0]) ** 2 + (j - center[1]) ** 2)
+                pi[i, j] = np.exp(-distance)  # Higher probability near the center
+        pi = pi.flatten() / pi.sum()  # Normalize to get probabilities
+    elif prior_distribution == "border":
+        grid_size = int(np.sqrt(N))  # Assuming square grid
+        pi = np.zeros((grid_size, grid_size))
+        for i in range(grid_size):
+            for j in range(grid_size):
+                if i == 0 or i == grid_size - 1 or j == 0 or j == grid_size - 1:
+                    pi[i, j] = 1  # Higher probability on borders
+                else:
+                    pi[i, j] = 0.1  # Lower probability in the center
+        pi = pi.flatten() / pi.sum()  # Normalize to get probabilities
+    
+    # Simulation de la position réelle de l'objet
+    true_position = np.random.randint(0, N)  # L'objet est dans une case aléatoire
+    
+    # Itérations de recherche
+    for iteration in range(1, max_iterations + 1):
+        # Sélectionner la case avec la plus grande probabilité
+        k = np.argmax(pi)
+        
+        # Simulation de la détection
+        if k == true_position:
+            detection = np.random.rand() < ps  # Succès de détection avec probabilité ps
+        else:
+            detection = False  # Échec de la détection si ce n'est pas la bonne case
+        
+        if detection:
+            return iteration  # L'objet est trouvé, retourner le nombre d'itérations
+        else:
+            # Mise à jour des probabilités après échec de la détection
+            pi = update_probabilities(pi, ps, k)
+    
+    return max_iterations  # Si l'objet n'est pas trouvé, retourner le nombre max d'itérations
+
+# Configuration de la simulation
+N = 100  # Taille de la grille (10x10)
+ps = 0.8  # Probabilité de succès de détection si l'objet est présent
+max_iterations = 1000  # Nombre maximum d'itérations
+num_searches = 1000  # Nombre de recherches à effectuer
+
+# Effectuer les recherches pour chaque distribution
+distributions = ['uniform', 'centered', 'border']
+results = {}
+
+for distribution in distributions:
+    iterations_needed = [bayesian_search_with_priors(N, ps, max_iterations, distribution) for _ in range(num_searches)]
+    results[distribution] = iterations_needed
+
+# Tracer les histogrammes comparatifs
+plt.figure(figsize=(12, 8))
+
+for i, distribution in enumerate(distributions):
+    plt.subplot(3, 1, i + 1)
+    plt.hist(results[distribution], bins=range(1, max_iterations + 1), edgecolor='black', alpha=0.7)
+    plt.title(f'Distribution du nombre d\'itérations nécessaires - {distribution.capitalize()} prior')
+    plt.xlabel('Nombre d\'itérations')
+    plt.ylabel('Fréquence')
+    plt.grid(True)
+
+plt.tight_layout()
 plt.show()
